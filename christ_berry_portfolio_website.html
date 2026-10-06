@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christ Berry | AI Data Specialist & Data Annotator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f6ff',
+                            100: '#e0edff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            accent: '#6366f1',
+                            glow: '#8b5cf6'
+                        },
+                        darkbg: '#0b0f17',
+                        darkcard: '#131926'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        
+        /* Subtle Glow Effects */
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4);
+            border-radius: 1rem;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            filter: blur(8px);
+        }
+        .glow-effect:hover::before {
+            opacity: 0.6;
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-darkbg text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white min-h-screen transition-colors duration-300 bg-grid-pattern">
+
+    <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-white/70 dark:bg-darkbg/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-glow flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                        CB
+                    </div>
+                    <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-slate-900 via-brand-600 to-slate-800 dark:from-white dark:via-brand-500 dark:to-slate-300 bg-clip-text text-transparent">
+                        Christ Berry
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors">About</a>
+                    <a href="#skills" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Skills</a>
+                    <a href="#experience" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Experience</a>
+                    <a href="#education" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Education</a>
+                    <a href="#contact" class="text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-500 transition-colors">Contact</a>
+                </div>
+
+                <!-- Theme Toggle & Action Button -->
+                <div class="flex items-center gap-3">
+                    <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors border border-slate-200 dark:border-slate-700/60" aria-label="Toggle Theme">
+                        <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-lg text-amber-400"></i>
+                    </button>
+                    
+                    <button onclick="openModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-brand-600 to-brand-glow text-white shadow-md shadow-brand-500/25 hover:shadow-lg hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all">
+                        <i class="fa-regular fa-paper-plane"></i> Get in Touch
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Open Menu">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile dropdown menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-darkbg/95 backdrop-blur-lg px-4 pt-2 pb-4 space-y-2">
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">About</a>
+            <a href="#skills" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Skills</a>
+            <a href="#experience" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Experience</a>
+            <a href="#education" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Education</a>
+            <a href="#contact" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">Contact</a>
+            <button onclick="openModal()" class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl bg-brand-600 text-white">
+                <i class="fa-regular fa-paper-plane"></i> Get in Touch
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+        <!-- Background Ambient Glow -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-72 h-72 bg-brand-glow/15 dark:bg-brand-glow/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-12">
+                
+                <!-- Left Content -->
+                <div class="flex-1 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 dark:bg-brand-500/10 border border-brand-200 dark:border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Available for AI & Data Annotator Roles
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                        Hi, I'm <span class="bg-gradient-to-r from-brand-500 via-brand-glow to-cyan-400 bg-clip-text text-transparent">Christ Berry</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl font-medium text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0">
+                        Data Annotator & AI Data Specialist based in <span class="text-slate-800 dark:text-slate-100 font-semibold"><i class="fa-solid fa-location-dot text-rose-500 mr-1"></i>Dumaguete City, Philippines</span>.
+                    </p>
+
+                    <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Dedicated to advancing AI/ML model capabilities through meticulous dataset labeling, prompt engineering, logic testing, and rigorous high-volume quality assurance.
+                    </p>
+
+                    <!-- Interactive Quick Action Buttons -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#experience" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 text-white font-semibold shadow-md transition-all flex items-center gap-2">
+                            View Experience <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </a>
+                        
+                        <!-- Copy Email Pill Button -->
+                        <button onclick="copyEmail()" class="group relative px-5 py-3 rounded-xl bg-white dark:bg-darkcard border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-brand-500 dark:hover:border-brand-500 font-medium transition-all flex items-center gap-2 shadow-sm">
+                            <i class="fa-regular fa-envelope text-brand-500"></i>
+                            <span id="emailText">cb549978@gmail.com</span>
+                            <i class="fa-regular fa-copy text-slate-400 group-hover:text-brand-500 transition-colors ml-1"></i>
+                            <span id="copyTooltip" class="absolute -top-9 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2.5 py-1 rounded shadow opacity-0 pointer-events-none transition-opacity">Copied!</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Card Graphic -->
+                <div class="flex-1 w-full max-w-md">
+                    <div class="bg-white dark:bg-darkcard rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none glow-effect space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-xl bg-brand-500/10 flex items-center justify-center text-brand-500 text-xl font-bold">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 dark:text-white">AI Data Quality</h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Core Performance Metric</p>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold">95%+ Standard</span>
+                        </div>
+
+                        <!-- Mini Highlights -->
+                        <div class="space-y-3.5 text-sm">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                <span class="text-slate-600 dark:text-slate-300 font-medium flex items-center gap-2">
+                                    <i class="fa-solid fa-tags text-brand-500"></i> Dataset Labeling
+                                </span>
+                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                <span class="text-slate-600 dark:text-slate-300 font-medium flex items-center gap-2">
+                                    <i class="fa-solid fa-terminal text-brand-glow"></i> Prompt Engineering
+                                </span>
+                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                <span class="text-slate-600 dark:text-slate-300 font-medium flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-halved text-cyan-500"></i> Safety & Logic Evaluation
+                                </span>
+                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 text-center border-t border-slate-100 dark:border-slate-800/80">
+                            <span class="text-xs text-slate-500 dark:text-slate-400">
+                                Trained and evaluated complex LLM & Vision Datasets
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-slate-100/70 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-2">Overview</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">Empowering Artificial Intelligence with Quality Data</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white dark:bg-darkcard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">High Precision Standard</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Consistently performing high-level quality assurance tasks to uphold an accuracy baseline of 95% or above on critical project deliverables.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white dark:bg-darkcard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-brand-glow/10 text-brand-glow flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">AI Model Fine-Tuning</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Specialized in training AI models by engineering custom prompts, evaluating response logic, and auditing model output safety.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white dark:bg-darkcard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-500 flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-filter"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Data Integrity</h4>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Expert in high-volume data cleansing, verification, and structured domain labeling for sensitive financial, retail, and visual datasets.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-2">Capabilities</h2>
+                    <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">Relevant Skills & Expertise</h3>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-sm mt-2 md:mt-0 max-w-md">
+                    A comprehensive stack of domain-specific data skills, technical tools, and communication capabilities.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Category 1: Subject/Domain Expertise -->
+                <div class="bg-white dark:bg-darkcard p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-500">
+                            <i class="fa-solid fa-layer-group text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Subject / Domain Expertise</h4>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">
+                        Accurate categorizations and specialized annotations for machine learning models.
+                    </p>
+                    <div class="flex flex-wrap gap-2.5 pt-2">
+                        <span class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm font-medium border border-slate-200 dark:border-slate-700/60 hover:border-brand-500 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-piggy-bank text-amber-500"></i> Bank Transaction Labeling
+                        </span>
+                        <span class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm font-medium border border-slate-200 dark:border-slate-700/60 hover:border-brand-500 transition-colors flex items-center gap-2">
+                            <i class="fa-regular fa-image text-blue-500"></i> Image Annotation
+                        </span>
+                        <span class="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 text-sm font-medium border border-slate-200 dark:border-slate-700/60 hover:border-brand-500 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-cart-shopping text-emerald-500"></i> Grocery Item Labeling
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Data Management -->
+                <div class="bg-white dark:bg-darkcard p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-lg bg-brand-500/10 text-brand-500">
+                            <i class="fa-solid fa-database text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Data Management</h4>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Detail-oriented Data Specialist skilled in high-volume data cleansing and verification, ensuring data integrity for critical AI/ML projects.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <span class="px-3 py-1.5 rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300 text-xs font-semibold">Data Cleansing</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300 text-xs font-semibold">High-Volume Verification</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300 text-xs font-semibold">AI/ML Integrity</span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Technical Skills -->
+                <div class="bg-white dark:bg-darkcard p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-500">
+                            <i class="fa-solid fa-laptop-code text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Technical Skills</h4>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">
+                        Proficiency in MS Office and Google Workspace suites for analytics and reporting.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2.5 pt-2">
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/50 flex items-center gap-2 text-sm font-medium">
+                            <i class="fa-solid fa-table-cells text-emerald-500"></i> Pivot Tables
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/50 flex items-center gap-2 text-sm font-medium">
+                            <i class="fa-solid fa-magnifying-glass text-blue-500"></i> VLOOKUP
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/50 flex items-center gap-2 text-sm font-medium">
+                            <i class="fa-chart-pie fa-solid text-purple-500"></i> Basic Charts & Reports
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/50 flex items-center gap-2 text-sm font-medium">
+                            <i class="fa-brands fa-google text-rose-500"></i> Workspace / MS Office
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 4: Soft Skills -->
+                <div class="bg-white dark:bg-darkcard p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2.5 rounded-lg bg-amber-500/10 text-amber-500">
+                            <i class="fa-solid fa-comments text-xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Professional Soft Skills</h4>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Strong collaborative mindset with clear documentation habits and active feedback loops across distributed teams.
+                    </p>
+                    <div class="space-y-2 pt-2">
+                        <div class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 font-medium">
+                            <i class="fa-solid fa-check text-brand-500"></i> Professional Communication
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 font-medium">
+                            <i class="fa-solid fa-check text-brand-500"></i> Quality Control & Attention to Detail
+                        </div>
+                        <div class="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300 font-medium">
+                            <i class="fa-solid fa-check text-brand-500"></i> Cross-functional Collaboration
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-20 bg-slate-100/70 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-2">Track Record</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">Work Experience</h3>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <!-- Experience Item -->
+                <div class="relative pl-6 sm:pl-8 border-l-2 border-brand-500 space-y-6">
+                    <!-- Dot Marker -->
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-brand-500 ring-4 ring-white dark:ring-darkbg"></div>
+
+                    <div class="bg-white dark:bg-darkcard p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800/80 pb-4">
+                            <div>
+                                <h4 class="text-2xl font-bold text-slate-900 dark:text-white">Data Annotator</h4>
+                                <p class="text-brand-600 dark:text-brand-400 font-semibold text-base flex items-center gap-2 mt-0.5">
+                                    <i class="fa-solid fa-building"></i> Innodata Knowledge Services, Inc.
+                                </p>
+                            </div>
+                            <span class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium w-max">
+                                <i class="fa-regular fa-calendar mr-1.5"></i> January 2026 – June 2026
+                            </span>
+                        </div>
+
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Specializes in training AI models by labeling complex datasets, evaluating responses for safety and accuracy, engineering prompts to test model logic, and performing high-level quality assurance to ensure all data meets a 95% accuracy standard.
+                        </p>
+
+                        <!-- Key Responsibilities Checklist -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <div class="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <i class="fa-solid fa-circle-check text-brand-500 mt-0.5"></i>
+                                <span>Complex Dataset Labeling</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <i class="fa-solid fa-circle-check text-brand-500 mt-0.5"></i>
+                                <span>Response Safety & Accuracy Evaluation</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <i class="fa-solid fa-circle-check text-brand-500 mt-0.5"></i>
+                                <span>Prompt Engineering & Logic Testing</span>
+                            </div>
+                            <div class="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-400">
+                                <i class="fa-solid fa-circle-check text-brand-500 mt-0.5"></i>
+                                <span>High-Level QA (95%+ Accuracy Standard)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="py-20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-2">Background</h2>
+                <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">Education History</h3>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white dark:bg-darkcard p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-5">
+                    <div class="p-3.5 rounded-2xl bg-brand-500/10 text-brand-500 text-2xl hidden sm:block">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div class="space-y-2 flex-1">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Diploma in Information Technology</h4>
+                            <span class="text-xs font-medium text-slate-500 dark:text-slate-400">June 2011 – March 2013</span>
+                        </div>
+                        <p class="text-brand-600 dark:text-brand-400 font-medium text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-school sm:hidden"></i> STI - Dumaguete
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm pt-1">
+                            Gained core technical foundation in information technology, computer systems, and data logic analysis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-slate-100/70 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto bg-white dark:bg-darkcard rounded-3xl p-8 sm:p-12 border border-slate-200 dark:border-slate-800 shadow-xl relative overflow-hidden">
+                <!-- Glow Accent -->
+                <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Left Contact Info -->
+                    <div class="space-y-6">
+                        <div>
+                            <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-2">Connect</h2>
+                            <h3 class="text-3xl font-extrabold text-slate-900 dark:text-white">Let's Work Together</h3>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            Interested in collaborating on AI data annotation, logic testing, or data cleansing projects? Feel free to reach out directly.
+                        </p>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Email Address</p>
+                                    <a href="mailto:cb549978@gmail.com" class="text-sm font-semibold text-slate-900 dark:text-white hover:text-brand-500 transition-colors">cb549978@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-500 flex items-center justify-center">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Location</p>
+                                    <p class="text-sm font-semibold text-slate-900 dark:text-white">Dumaguete City, Negros Oriental</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Form -->
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Your Name</label>
+                            <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Your Email</label>
+                            <input type="email" required placeholder="john@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">Message</label>
+                            <textarea rows="4" required placeholder="How can Christ help with your project?" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:border-brand-500 text-sm resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-brand-glow hover:from-brand-500 hover:to-brand-600 text-white font-semibold shadow-lg shadow-brand-500/25 transition-all text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 bg-white dark:bg-darkbg border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>© 2026 Christ Berry. All Rights Reserved.</p>
+            <p class="mt-1">Data Annotator & AI Data Specialist • Dumaguete City, Philippines</p>
+        </div>
+    </footer>
+
+    <div id="contactModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        <div class="bg-white dark:bg-darkcard w-full max-w-md rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-2xl space-y-6 transform scale-95 transition-transform duration-300 relative">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center mx-auto text-xl">
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Get in Touch</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Send a direct inquiry to Christ Berry</p>
+            </div>
+
+            <form onsubmit="handleModalSubmit(event)" class="space-y-4">
+                <input type="text" placeholder="Your Name" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-brand-500">
+                <input type="email" placeholder="Your Email" required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-brand-500">
+                <textarea rows="3" placeholder="Message details..." required class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-brand-500 resize-none"></textarea>
+                <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm transition-colors">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-4 py-3 rounded-xl shadow-2xl text-sm font-medium flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600 text-lg"></i>
+        <span id="toastMessage">Action completed successfully!</span>
+    </div>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Initialize preferred theme
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy Email to Clipboard
+        function copyEmail() {
+            const email = "cb549978@gmail.com";
+            
+            // Fallback execCommand strategy for iframe compatibility
+            const tempInput = document.createElement('input');
+            tempInput.value = email;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            // Show Tooltip & Toast
+            const tooltip = document.getElementById('copyTooltip');
+            tooltip.classList.remove('opacity-0');
+            setTimeout(() => {
+                tooltip.classList.add('opacity-0');
+            }, 2000);
+
+            showToast("Email address copied to clipboard!");
+        }
+
+        // Modal Controls
+        const modal = document.getElementById('contactModal');
+
+        function openModal() {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.remove('scale-95');
+            modal.firstElementChild.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.firstElementChild.classList.remove('scale-100');
+            modal.firstElementChild.classList.add('scale-95');
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Form Submission Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            e.target.reset();
+            showToast("Thank you! Your message has been sent.");
+        }
+
+        function handleModalSubmit(e) {
+            e.preventDefault();
+            closeModal();
+            e.target.reset();
+            showToast("Message sent successfully!");
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
